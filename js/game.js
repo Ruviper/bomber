@@ -6,9 +6,19 @@ function Game(canvasId) {
 }
 
 Game.prototype.start = function() {
+    this.background = new Background(this);
     this.player = new Player(this);
-    this.player.draw()
-    
+    this.obstacle = new Obstacle(this);    
+    this.updateCanvas();
+}
+
+Game.prototype.updateCanvas = function() {
+    var that = this;
+    this.intervalId = setInterval(function() {
+        that.background.draw();
+        that.player.draw()
+        that.obstacle.draw();
+    }, 1000);
 }
 
 

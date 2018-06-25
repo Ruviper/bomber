@@ -3,6 +3,6 @@ window.onload = function() {
     
     game.start();
 }
-console.log('index.js')
+
 
 
