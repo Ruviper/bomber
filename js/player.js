@@ -5,14 +5,16 @@ function Player(game) {
     this.Speed = 1;
     this.width = 50;
     this.heigh = 50;
-    this.life = life;
-    this.score = score;
+    //this.life = life;
+    //this.score = score;
     this.img = new Image();
-    this.img.src = 'https://media.giphy.com/media/Qr8JE9Hvi7ave/200.gif'
+    this.img.src = 'img/player.png';
 }
 
 Player.prototype.draw = function() {
-    this.game.ctx.drawImage(this.img, this.x, this.y, this.width, this.heigh);
+    console.log(this.game.ctx);
+    console.log(this.img.src)
+    this.game.ctx.drawImage(this.img, 150, 150, 200, 200);
 }  
 
 Player.prototype.move = function() {
@@ -21,7 +23,7 @@ Player.prototype.move = function() {
             case 38: player.moveUp();    break;
             case 40: player.moveDown();  break;
             case 37: player.moveLeft();  break;
-            case 39: player.moveRight(); break;
+            case 39: player.moveRight(); break; 
         }
     }
 }
