@@ -34,7 +34,7 @@ Obstacle.prototype.draw = function(img, x, y, w, h) {
 
 Obstacle.prototype.drawBlock = function() {
   var xBlock, yBlock;
-    for (var i = 0; i <= this.block.length; i++) {
+    for (var i = 0; i < this.block.length; i++) {
       yBlock = (this.block[i][0]) * 100;
       xBlock = (this.block[i][1]) * 100;
       this.draw(this.imgBola, xBlock, yBlock, this.width, this.height)    
