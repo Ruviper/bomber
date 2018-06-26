@@ -13,7 +13,7 @@ function Player(game) {
 
 Player.prototype.draw = function() {
     var that = this;
-    this.game.ctx.drawImage(that.img, 150, 150, 70, 70);
+    this.game.ctx.drawImage(that.img, 0, 0, 100, 100);
     // this.img.onload = function(){
     //     that.game.ctx.drawImage(that.img, 150, 150, 200, 200);
     // }

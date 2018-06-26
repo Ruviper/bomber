@@ -1,6 +1,8 @@
 function Game(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
     this.fps = 60;
     //this.reset();
 }
@@ -17,7 +19,7 @@ Game.prototype.updateCanvas = function() {
     this.intervalId = setInterval(function() {
         that.background.draw();
         that.player.draw()
-        that.obstacle.draw();
+        that.obstacle.drawBlock();
     }, 1000);
 }
 
