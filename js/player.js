@@ -3,8 +3,8 @@ function Player(game) {
     this.x = 0;
     this.y = 0;
     this.Speed = 50;
-    this.width = 100;
-    this.height = 100;
+    this.width = 50;
+    this.height = 50;
     //this.life = life;
     //this.score = score;
     this.img = new Image();
@@ -21,7 +21,6 @@ Player.prototype.draw = function() {
 }  
 
 Player.prototype.setListeners = function() {
-    console.log('move')
     document.onkeydown = function(e) {
         switch (e.keyCode) {
           case 38: // Up
@@ -34,9 +33,7 @@ Player.prototype.setListeners = function() {
               //this.y -= this.v;
             }
             break;
-    
           case 40: // Down
-          console.log('down')
             if (this.y >= this.game.canvas.height - this.height) {
               this.y = this.game.canvas.height - this.height;
               return;
@@ -45,7 +42,6 @@ Player.prototype.setListeners = function() {
               //this.y += this.v;
             }
             break;
-    
           case 37: // Left
             if (this.x <= this.width) {
               this.x = 0;
@@ -55,7 +51,6 @@ Player.prototype.setListeners = function() {
               // this.x -= this.v;
             }
             break;
-    
           case 39: // Right
             if (this.x >= this.game.canvas.width-this.width) {
               this.x = this.game.canvas.width-this.width;
@@ -70,12 +65,14 @@ Player.prototype.setListeners = function() {
 };
 
 Player.prototype.move = function(coor, v) {
-  if (coor === 'x') this.x += v*this.Speed;
-  if (coor === 'y') this.y += v*this.Speed; 
+    var x = this.x;
+    var y = this.y;
+    if (coor === 'x') x += v*this.Speed;
+    if (coor === 'y') y += v*this.Speed; 
   // console.log(x,y);
-  if (!this.game.checkIfCollision(this.x, this.y)) {
-    if (coor === 'x') this.x += v*this.Speed;
-    if (coor === 'y') this.y += v*this.Speed;
+  if (!this.game.checkIfCollision(x, y)) {
+    this.x = x;
+    this.y = y;
    }
     else {
       console.log('collision')

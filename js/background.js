@@ -9,8 +9,8 @@ function Background(game) {
 }
 
 Background.prototype.floor = function() {
-    for (var i = 0; i <= this.game.width; i+=100) {
-        for (var j = 0; j <= this.game.width; j+=100) {
+    for (var i = 0; i <= this.game.width; i+=50) {
+        for (var j = 0; j <= this.game.width; j+=50) {
             this.grid.push({x: i, y: j});
             //this.game.ctx.drawImage(this.imgSuelo, 0, 0, 100, 100)
         }

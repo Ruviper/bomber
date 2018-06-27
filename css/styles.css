@@ -1,3 +1,35 @@
 #canvas {
-    border: 1px solid black;
+    border: 5px solid black;
+}
+
+.container {
+    display: flex;
+    max-width: 100%;
+    position: relative;
+    top: 80px;
+    left: 300px;
+ 
+}
+
+body {
+    background-image: url('../img/bomberman.jpg');
+}
+
+.game {
+    width: 50%
+}
+
+.buttons-container {
+    display: flex;
+    width: 50%;
+    align-self: center;
+}
+
+.button {
+    width: 150px;
+    height: 100px;
+    font-size: 20px;
+    font-weight: 900;
+    background: gray;
+    border: 5px solid red;
 }

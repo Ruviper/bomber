@@ -12,6 +12,7 @@ Game.prototype.start = function() {
     this.player = new Player(this);
     this.obstacle = new Obstacle(this);   
     this.enemy = new Enemy(this);
+    //this.bomb = new Bomb(this);
     this.updateCanvas();
 }
 
@@ -22,24 +23,37 @@ Game.prototype.updateCanvas = function() {
         that.player.draw();
         that.enemy.draw();
         that.obstacle.drawBlock();
+        that.obstacle.drawRock();
     }, 100);
 }
 
 Game.prototype.checkIfCollision = function(x, y) {
     var arr = this.obstacle.block;
+    var arr2 = this.obstacle.rock;
     var collision = false;
    
     for (var i = 0; i< arr.length; i++) {
       if (
-      x < arr[i][0] * 100 + 100 &&
-      x + 100 > arr[i][0]*100 &&
-      y < arr[i][1] * 100 + 100 &&
-      100 + y > arr[i][1]*100)
+      x < arr[i][0] * 50 + 50 &&
+      x + 50 > arr[i][0]*50 &&
+      y < arr[i][1] * 50 + 50 &&
+      50 + y > arr[i][1]*50)
       {
-      collision = true;
+        collision = true;
       }
     }
-    return collision;
-  }
+    for (var j = 0; j< arr2.length; j++) {
+        if (
+        x < arr2[j][0] * 50 + 50 &&
+        x + 50 > arr2[j][0]*50 &&
+        y < arr2[j][1] * 50 + 50 &&
+        50 + y > arr2[j][1]*50)
+        {
+            collision = true;
+        }
+      }
+      return collision;
+  
+}
 
 
