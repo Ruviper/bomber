@@ -3,7 +3,7 @@ function Enemy(game, x, y) {
     this.x = x;
     this.y = y;
     this.enemy = [0,6],[2,10],[4,5],[6,0],[9,11],[12,2];
-    this.speed = 20;
+    this.speed = 10;
     this.width = 50;
     this.height = 50;
     //this.life = life;
@@ -26,9 +26,6 @@ Enemy.prototype.createEnemies = function() {
 Enemy.prototype.draw = function() {
     var that = this;
     this.game.ctx.drawImage(that.img, this.x, this.y, this.width, this.height);
-    // this.img.onload = function(){
-    //     that.game.ctx.drawImage(that.img, 150, 150, 200, 200);
-    // }
 } 
 
 

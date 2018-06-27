@@ -4,6 +4,7 @@ function Game(canvasId) {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.fps = 60;
+    this.framesCounter = 0;
     //this.reset();
 }
 
@@ -12,19 +13,22 @@ Game.prototype.start = function() {
     this.player = new Player(this);
     this.obstacle = new Obstacle(this);   
     this.enemy = new Enemy(this);
-    this.bomb = new Bomb(this);
+    this.bomb = [];
     this.updateCanvas();
 }
 
 Game.prototype.updateCanvas = function() {
     var that = this;
     this.intervalId = setInterval(function() {
+        that.framesCounter++;
         that.background.draw();
         that.player.draw();
         that.enemy.draw();
         that.obstacle.drawBlock();
         that.obstacle.drawRock();
-        that.bomb.draw();
+        that.bomb.forEach(function (b) {
+            b.draw();
+        })
     }, 100);
 }
 
