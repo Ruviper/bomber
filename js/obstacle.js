@@ -12,7 +12,7 @@ function Obstacle(game) {
     [13,1],[13,3],[13,5],[13,7],[13,9],[13,11],[13,13],
 ];
   this.rock = [
-    [0,4],[0,5],[0,9],
+    [0,4],[0,5],[0,9],[0,12],
     [1,4],[1,8],
     [2,1],[2,2],[2,6],[2,8],
     [3,0],[3,10],[3,14],
@@ -20,7 +20,7 @@ function Obstacle(game) {
     [5,2],
     [6,1],[6,4],[6,6],[6,9],[6,12],
     [7,2],[7,10],
-    [8,0],[8,1],[8,3],[8,6],[8,8],[8,9],
+    [8,0],[8,3],[8,6],[8,8],[8,9],[8,14],
     [9,2],[9,4],
     [10,0],[10,5],[10,7],[10,9],[10,12],
     [11,2],[11,8],
@@ -41,8 +41,8 @@ Obstacle.prototype.draw = function(img, x, y, w, h) {
 Obstacle.prototype.drawBlock = function() {
   var xBlock, yBlock;
     for (var i = 0; i < this.block.length; i++) {
-      yBlock = (this.block[i][0]) * this.height;
-      xBlock = (this.block[i][1]) * this.width;
+      yBlock = (this.block[i][1]) * this.height;
+      xBlock = (this.block[i][0]) * this.width;
       this.draw(this.imgBola, xBlock, yBlock, this.width, this.height)    
     } 
 }
@@ -50,8 +50,8 @@ Obstacle.prototype.drawBlock = function() {
 Obstacle.prototype.drawRock = function() {
   var xRock, yRock;
     for (var i = 0; i < this.rock.length; i++) {
-      yRock = (this.rock[i][0]) * this.height;
-      xRock = (this.rock[i][1]) * this.width;
+      yRock = (this.rock[i][1]) * this.height;
+      xRock = (this.rock[i][0]) * this.width;
       this.draw(this.imgRoca, xRock, yRock, this.width, this.height)
     }
 }

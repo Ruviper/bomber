@@ -8,56 +8,55 @@ function Player(game) {
     //this.life = life;
     //this.score = score;
     this.img = new Image();
-    this.img.src = 'https://media.giphy.com/media/Qr8JE9Hvi7ave/200.gif';
+    this.img.src = 'img/bomber-stop.png';
     this.setListeners();   
 }
 
 Player.prototype.draw = function() {
-    var that = this;
-    this.game.ctx.drawImage(that.img, this.x, this.y, this.width, this.height);
-    // this.img.onload = function(){
-    //     that.game.ctx.drawImage(that.img, 150, 150, 200, 200);
-    // }
+    this.game.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 }  
 
 Player.prototype.setListeners = function() {
     document.onkeydown = function(e) {
         switch (e.keyCode) {
+          case 32: 
+            if (this.x <= 500) {
+               this.bomb.draw();
+            }
           case 38: // Up
-          console.log('up')
+            this.img.src = "img/bomber-up.png"
             if (this.y <= this.height) {
               this.y = 0;
               return;
             } else {
               this.move('y', -1);
-              //this.y -= this.v;
             }
             break;
           case 40: // Down
+          this.img.src = "img/bomber-down.png"
             if (this.y >= this.game.canvas.height - this.height) {
               this.y = this.game.canvas.height - this.height;
               return;
             } else {
               this.move('y', 1);
-              //this.y += this.v;
             }
             break;
           case 37: // Left
+          this.img.src = "img/bomber-left.png"
             if (this.x <= this.width) {
               this.x = 0;
               return;
             } else {
               this.move('x', -1);
-              // this.x -= this.v;
             }
             break;
           case 39: // Right
+          this.img.src = "img/bomber-rigth.png"
             if (this.x >= this.game.canvas.width-this.width) {
               this.x = this.game.canvas.width-this.width;
               return;
             } else {
               this.move('x', 1);
-              // this.x += this.v;
             }
             break;
         } 
@@ -69,7 +68,7 @@ Player.prototype.move = function(coor, v) {
     var y = this.y;
     if (coor === 'x') x += v*this.Speed;
     if (coor === 'y') y += v*this.Speed; 
-  // console.log(x,y);
+   console.log(x,y);
   if (!this.game.checkIfCollision(x, y)) {
     this.x = x;
     this.y = y;

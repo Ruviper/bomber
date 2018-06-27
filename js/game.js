@@ -12,7 +12,7 @@ Game.prototype.start = function() {
     this.player = new Player(this);
     this.obstacle = new Obstacle(this);   
     this.enemy = new Enemy(this);
-    //this.bomb = new Bomb(this);
+    this.bomb = new Bomb(this);
     this.updateCanvas();
 }
 
@@ -24,6 +24,7 @@ Game.prototype.updateCanvas = function() {
         that.enemy.draw();
         that.obstacle.drawBlock();
         that.obstacle.drawRock();
+        that.bomb.draw();
     }, 100);
 }
 
@@ -44,12 +45,12 @@ Game.prototype.checkIfCollision = function(x, y) {
     }
     for (var j = 0; j< arr2.length; j++) {
         if (
-        x < arr2[j][0] * 50 + 50 &&
-        x + 50 > arr2[j][0]*50 &&
-        y < arr2[j][1] * 50 + 50 &&
-        50 + y > arr2[j][1]*50)
-        {
-            collision = true;
+            x < arr2[j][0] * 50 + 50 &&
+            x + 50 > arr2[j][0]*50 &&
+            y < arr2[j][1] * 50 + 50 &&
+            50 + y > arr2[j][1]*50)
+            {
+          collision = true;
         }
       }
       return collision;
