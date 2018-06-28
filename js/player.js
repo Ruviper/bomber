@@ -23,7 +23,7 @@ function Player(game) {
   var that = this;
   Object.keys(this.images).forEach(function(key) {
     var image = new Image();
-    image.src = that.images[key];;
+    image.src = that.images[key];
     that.sprite[key] = image;
   });
   this.img = this.sprite.right;
@@ -31,7 +31,6 @@ function Player(game) {
 }
 
 Player.prototype.draw = function() {
-
   if (this.speedX > 0) {
     this.img = this.sprite.right;
   }
@@ -45,6 +44,7 @@ Player.prototype.draw = function() {
   if (this.speedY < 0) {
     this.img = this.sprite.up;
   }
+
   this.game.ctx.drawImage(
     this.img,
     18*Math.floor(this.frameIndex/10),

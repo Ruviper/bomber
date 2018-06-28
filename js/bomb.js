@@ -10,7 +10,7 @@ function Bomb(game, x, y) {
     this.imgBomb.src = 'img/bomb.png';
     this.imgBomb.frames = 3;
     this.imgBomb.frameIndex = 0; 
-    this.time = 5 * 60;  
+    this.time = 4 * 60;  
     this.imgExplosion = new Image();
     this.imgExplosion.src = 'img/explosion.png';
 }
@@ -50,8 +50,6 @@ Bomb.prototype.explosion = function() {
 
 Bomb.prototype.compareObjects = function(b) {
     var that = this;
-    console.log('obstacles length')
-    console.log(this.game.obstacles.length)
     var rocks = this.game.obstacles.filter(function (obs) {
         return obs.type === 'rock';
     })

@@ -28,8 +28,14 @@ Game.prototype.start = function() {
     this.background = new Background(this);
     this.bomb = [];
     this.player = new Player(this);
-    this.enemy = new Enemy(this);
+    //this.enemies = ;
 
+    var enemy_positions = [[0,6],[2,10],[4,5],[6,0],[5,8],[1,14],[13,12],[0,12],[2,10],[7,2],[6,14],[9,12],[8,8],[10,2],[10,10],[13,6],[4.4]]
+    this.enemies = [];
+    var that = this;
+    enemy_positions.forEach(function(enemyPos) {
+        that.enemies.push(new Enemy(that, enemyPos[0],enemyPos[1]))
+    })
 
     var block_positions = [
         [1,1],[1,3],[1,5],[1,7],[1,9],[1,11],[1,13],
@@ -46,7 +52,7 @@ Game.prototype.start = function() {
         [2,1],[2,2],[2,6],[2,8],
         [3,0],[3,10],[3,14],
         [4,4],[4,6],[4,7],[4,10],
-        [5,2],
+        [5,2],[5,14],[10,14],
         [6,1],[6,4],[6,6],[6,9],[6,12],
         [7,2],[7,10],
         [8,0],[8,3],[8,6],[8,8],[8,9],[8,14],
@@ -85,6 +91,13 @@ Game.prototype.update = function() {
         }
     })
 
+    this.enemies.forEach(function(enemy){
+        if(that.player.isColliding(enemy)){
+
+            colliding = true;
+        }
+    })
+
     if(colliding){
         this.player.speedX = 0;
         this.player.speedY = 0;
@@ -98,20 +111,49 @@ Game.prototype.update = function() {
     this.obstacles.forEach(function(obstacle){
         obstacle.draw();
     })
+    
     this.bomb.forEach(function (b) {
-        if(b.time >= 120) {
+        if(b.time >= 50) {
             b.draw();
         } 
-        if(b.time < 120 && b.time > 0) {
+        if(b.time < 50 && b.time > 30) {
             b.explosion();
             //b.compareObjects();
         }
         b.time-=1;
     });
     this.player.draw();
-
+    
+    this.enemies.forEach(function(enemy){
+        enemy.draw();
+    })
     window.requestAnimationFrame(this.update.bind(this));
 }
+/* 
+window.setInterval(function() {
+    for (var i = 0; i <= 60; i--) {
+        console.log(i)
+    }
+},1000);
 
+Game.prototype.chronometer = function() {
+    
+} */
 
+/* Game.prototype.stop = function() {
+    clearInterval(this.clearInterval);
+}
 
+Game.prototype.gameOver = function() {
+    if(this.time === 0) {
+        this.stop();
+    }
+    if(confirm("GAME OVER.PLAY AGAIN?")) {
+        this.reset();
+        this.start();
+    }
+}
+
+Game.prototype.reset = function() {
+    
+} */
