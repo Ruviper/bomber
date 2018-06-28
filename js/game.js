@@ -104,6 +104,7 @@ Game.prototype.update = function() {
         } 
         if(b.time < 120 && b.time > 0) {
             b.explosion();
+            //b.compareObjects();
         }
         b.time-=1;
     });

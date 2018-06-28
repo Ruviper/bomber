@@ -2,8 +2,8 @@ function Bomb(game, x, y) {
     this.game = game;
     this.x = x;
     this.y = y;
-    this.gridX = Math.floor(b.x/50);
-    this.gridY = Math.floor(b.y/50);
+    //this.gridX = Math.floor(x/50);
+    //this.gridY = Math.floor(y/50);
     this.width = 50;
     this.height = 50;
     this.imgBomb = new Image();
@@ -45,21 +45,35 @@ Bomb.prototype.explosion = function() {
         this.width,
         this.height,
     )
+    this.compareObjects();
 }
 
-Bomb.prototype.compareObjects = function() {
-    if(rock_positions.includes(this.gridX += 1)) {
-
-    } else if (rock_positions.includes(this.gridX -= 1)) {
-
-    } else if(rock_positions.includes(this.gridY +=1)) {
-
-    } else if(rock_positions.includes(this.gridY -= 1)) {
-        
-    }
+Bomb.prototype.compareObjects = function(b) {
+    var that = this;
+    console.log('obstacles length')
+    console.log(this.game.obstacles.length)
+    var rocks = this.game.obstacles.filter(function (obs) {
+        return obs.type === 'rock';
+    })
+    
+    rocks.forEach(function(e) {
+        if(e.x == that.x + 50 && e.y == that.y){ // derecha
+            var pos = that.game.obstacles.indexOf(e);
+            that.game.obstacles.splice(pos, 1);
+        }
+        if(e.x == that.x - 50 && e.y == that.y){ //izquierda
+            var pos = that.game.obstacles.indexOf(e);
+            that.game.obstacles.splice(pos, 1);
+        }
+        if(e.x == that.x && e.y == that.y + 50){ // debajo
+            var pos = that.game.obstacles.indexOf(e);
+            that.game.obstacles.splice(pos, 1);
+        }
+        if(e.x == that.x && e.y == that.y - 50){ // encima
+            var pos = that.game.obstacles.indexOf(e);
+            that.game.obstacles.splice(pos, 1);
+        }
+    });
 }
 
 
-    /* setTimeout(function() {
-        clearRect(that.x, that.y, that.width, that.height)
-    },1000) */

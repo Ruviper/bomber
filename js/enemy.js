@@ -2,7 +2,7 @@ function Enemy(game) {
     this.game = game;
     //this.x = x;
     //this.y = y;
-    this.enemy = [[0,6],[2,10],[4,5],[6,0],[9,12],[12,2],[13,6]];
+    this.enemy = [[0,6],[2,10],[4,5],[6,0],[9,12],[12,2],[13,6]];   
     this.speed = 10;
     this.width = 50;
     this.height = 50;

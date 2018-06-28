@@ -4,6 +4,9 @@ function Obstacle(game, x_grilla, y_grilla, type) {
   this.height = 50;
   this.x = x_grilla * this.width;
   this.y = y_grilla * this.height;
+  this.type = type;
+  //this.gridX = x_grilla;
+  //this.gridY = y_grilla;
   this.img = new Image();
   
   if(type == "rock"){

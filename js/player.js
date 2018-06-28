@@ -59,7 +59,7 @@ Player.prototype.draw = function() {
 };
 
 Player.prototype.dropBomb = function() {
-  this.game.bomb.push(new Bomb(this.game, this.x, this.y));
+  this.game.bomb.push(new Bomb(this.game, Math.round(this.x/50)*50, Math.round(this.y/50)*50));
   this.time = 3;
 };
 
