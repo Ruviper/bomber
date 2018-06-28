@@ -1,103 +1,117 @@
 function Player(game) {
-    this.game = game;
-    this.x = 0;
-    this.y = 0;
-    this.Speed = 10;
-    this.width = 50;
-    this.height = 50;
-    this.bomb;
-    //this.life = life;
-    //this.score = score;
-    this.img = new Image();
-    this.img.src = 'img/bomber-down.png';
-    this.img.frames = 3;
-    this.img.frameIndex = 0;
-    this.setListeners();   
+  this.game = game;
+  this.x = 0;
+  this.y = 0;
+  this.speedX = 0;
+  this.speedY = 0;
+  this.maxSpeed = 3;
+
+  this.width = 50;
+  this.height = 50;
+  //this.life = life;
+  //this.score = score;
+
+  this.images = {
+    up: "img/bomber-up.png",
+    down: "img/bomber-down.png",
+    left: "img/bomber-left.png",
+    right: "img/bomber-right.png"
+  };
+  this.sprite = {};
+  this.frameIndex = 0;
+  //Load all sprites
+  var that = this;
+  Object.keys(this.images).forEach(function(key) {
+    var image = new Image();
+    image.src = that.images[key];;
+    that.sprite[key] = image;
+  });
+  this.img = this.sprite.right;
+
 }
 
 Player.prototype.draw = function() {
-    this.game.ctx.drawImage(
-      this.img,
-      this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
-      0,
-      Math.floor(this.img.width / this.img.frames),
-      this.img.height,
-      this.x,
-      this.y,
-      this.width,
-      this.height
-    ); 
-    this.animateImg();
-}
 
-Player.prototype.setListeners = function() {
-    document.onkeydown = function(e) {
-        switch (e.keyCode) {
-          case 32: // Space
-            this.game.bomb.push(new Bomb(this.game, this.x, this.y));
-            break;
-          case 66: // b
-          console.log(e.keyCode)
-            this.game.bomb.shift();
-            break;
-          case 38: // Up
-            this.img.src = "img/bomber-up.png"
-            if (this.y <= this.height-40) {
-              this.y = 0;
-              return;
-            } else {
-              this.move('y', -1);
-            }
-            break;
-          case 40: // Down
-          this.img.src = "img/bomber-down.png"
-            if (this.y >= this.game.canvas.height - this.height) {
-              this.y = this.game.canvas.height - this.height;
-              return;
-            } else {
-              this.move('y', 1);
-            }
-            break;
-          case 37: // Left
-          this.img.src = "img/bomber-left.png"
-            if (this.x <= this.width-40) {
-              this.x = 0;
-              return;
-            } else {
-              this.move('x', -1);
-            }
-            break;
-          case 39: // Right
-          this.img.src = "img/bomber-rigth.png"
-            if (this.x >= this.game.canvas.width-this.width) {
-              this.x = this.game.canvas.width-this.width;this.animateImg();
-              return;
-            } else {
-              this.move('x', 1);
-            }
-            break;
-        } 
-    }.bind(this);
+  if (this.speedX > 0) {
+    this.img = this.sprite.right;
+  }
+  if (this.speedX < 0) {
+    this.img = this.sprite.left;
+  }
+
+  if (this.speedY > 0) {
+    this.img = this.sprite.down;
+  }
+  if (this.speedY < 0) {
+    this.img = this.sprite.up;
+  }
+  this.game.ctx.drawImage(
+    this.img,
+    18*Math.floor(this.frameIndex/10),
+    0,
+    15,
+    20,
+    this.x,
+    this.y,
+    50,
+    50
+  );
 };
 
-Player.prototype.animateImg = function() {
-    if (this.game.framesCounter % 6 === 0) {
-      this.img.frameIndex += 1;
-      if (this.img.frameIndex > 2) this.img.frameIndex = 0;
-    }
-  };
+Player.prototype.dropBomb = function() {
+  this.game.bomb.push(new Bomb(this.game, this.x, this.y));
+};
 
-Player.prototype.move = function(coor, v) {
-    var x = this.x;
-    var y = this.y;
-    if (coor === 'x') x += v*this.Speed;
-    if (coor === 'y') y += v*this.Speed; 
-    console.log(x,y);
-    if (!this.game.checkIfCollision(x, y)) {
-    this.x = x;
-    this.y = y;
-    }
-    else {
-      console.log('collision')
-    }
-};  
+Player.prototype.update = function() {
+  this.frameIndex = (this.frameIndex+1) % 30;
+  this.x += this.speedX;
+  this.y += this.speedY;
+};
+
+Player.prototype.keyboardDown = function(key) {
+  switch (key) {
+    case KEYBOARD.space:
+      return this.dropBomb();
+    case KEYBOARD.up:
+      this.speedY = -this.maxSpeed;
+      return;
+    case KEYBOARD.down:
+      this.speedY = this.maxSpeed;
+      return;
+    case KEYBOARD.left:
+      this.speedX = -this.maxSpeed;
+      return;
+    case KEYBOARD.right:
+      this.speedX = this.maxSpeed;
+      return;
+  }
+};
+
+Player.prototype.keyboardUp = function(key) {
+  switch (key) {
+    case KEYBOARD.up:
+      this.speedY = 0;
+      return;
+    case KEYBOARD.down:
+      this.speedY = 0;
+      return;
+    case KEYBOARD.left:
+      this.speedX = 0;
+      return;
+    case KEYBOARD.right:
+      this.speedX = 0;
+      return;
+  }
+};
+
+Player.prototype.isColliding = function(obstacle) {
+  if (
+    this.x + this.speedX < obstacle.x + obstacle.width-10 &&
+    this.x + this.speedX + obstacle.width-10 > obstacle.x &&
+    this.y + this.speedY < obstacle.y + obstacle.height-10 &&
+    this.y + this.speedY + obstacle.height-10 > obstacle.y
+  ) {
+    return true;
+  }
+  return false;
+};

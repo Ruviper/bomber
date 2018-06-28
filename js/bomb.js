@@ -30,4 +30,9 @@ Bomb.prototype.animateImg = function() {
       this.imgBomb.frameIndex += 1;
       if (this.imgBomb.frameIndex > 2) this.imgBomb.frameIndex = 0;
     }
-  };
+};
+
+
+    /* setTimeout(function() {
+        clearRect(that.x, that.y, that.width, that.height)
+    },1000) */
