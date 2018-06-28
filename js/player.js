@@ -60,6 +60,7 @@ Player.prototype.draw = function() {
 
 Player.prototype.dropBomb = function() {
   this.game.bomb.push(new Bomb(this.game, this.x, this.y));
+  this.time = 3;
 };
 
 Player.prototype.update = function() {

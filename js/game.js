@@ -28,7 +28,6 @@ Game.prototype.start = function() {
     this.background = new Background(this);
     this.bomb = [];
     this.player = new Player(this);
-
     this.enemy = new Enemy(this);
 
 
@@ -74,6 +73,7 @@ Game.prototype.start = function() {
 }
 
 Game.prototype.update = function() {
+    
     this.framesCounter++;
     
     // Update objects in game
@@ -99,7 +99,13 @@ Game.prototype.update = function() {
         obstacle.draw();
     })
     this.bomb.forEach(function (b) {
-        b.draw();
+        if(b.time >= 120) {
+            b.draw();
+        } 
+        if(b.time < 120 && b.time > 0) {
+            b.explosion();
+        }
+        b.time-=1;
     });
     this.player.draw();
 
