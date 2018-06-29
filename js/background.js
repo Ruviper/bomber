@@ -3,9 +3,10 @@ function Background(game) {
     this.grid = [];
     this.obstacle;
     this.imgSuelo = new Image();
-    this.imgSuelo.src='img/suelo.png'
+    this.imgSuelo.src = 'img/suelo.png';
     this.floor();
-  
+    this.imgDoor = new Image();
+    this.imgDoor.src = 'img/door.jpeg'; 
 }
 
 Background.prototype.floor = function() {
@@ -25,8 +26,9 @@ Background.prototype.draw = function() {
             100,
             100,
         );
-            this.game.ctx.fillStyle = "green",
-            this.game.ctx.fillRect(700, 700, 50, 50)         
+        this.game.ctx.drawImage(
+            this.imgDoor,700, 700, 50, 50,
+        )
     }
 }
 

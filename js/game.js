@@ -1,11 +1,11 @@
 window.KEYBOARD = {
-    space: 32,
     b: 66,
     up: 38,
     down: 40,
     left: 37,
     right: 39,
 }
+
 var time = document.getElementById('timer');
 
 function Game(canvasId) {
@@ -29,7 +29,9 @@ Game.prototype.start = function() {
     this.background = new Background(this);
     this.bomb = [];
     this.player = new Player(this);
-
+    this.gameAudio = new Audio();
+    this.gameAudio.src = 'sounds/FreakInvadersTheme.ogg';
+    this.gameAudio.loop = true;
     this.time = 60;
     var enemy_positions = [[0,6],[2,10],[4,5],[6,0],[14,10],[14,13],[5,8],[1,14],[13,12],[0,12],[2,10],[7,2],[6,14],[9,12],[8,8],[10,2],[10,10],[13,6],[4.4]]
     this.enemies = [];
@@ -47,6 +49,7 @@ Game.prototype.start = function() {
         [11,1],[11,3],[11,5],[11,7],[11,9],[11,11],[11,13],
         [13,1],[13,3],[13,5],[13,7],[13,9],[13,11],[13,13],
     ];
+
     var rock_positions = [
         [0,4],[0,5],[0,9],[0,12],
         [1,4],[1,8],
@@ -62,7 +65,7 @@ Game.prototype.start = function() {
         [11,2],[11,8],
         [12,2],[12,5],[12,8],[12,11],
         [13,4],[13,8],[13,12],
-        [14,0],[14,4],[14,7],[14,11],
+        [14,0],[14,4],[14,7],[14,8],[14,9],[14,11],
     ];
 
     // Crea los obstaculos
@@ -85,20 +88,18 @@ Game.prototype.update = function() {
     // Update objects in game
     var colliding = false;
     var that = this;
-    this.obstacles.forEach(function(obstacle){
-        if(that.player.isColliding(obstacle)){
+    this.obstacles.forEach(function(obstacle) {
+        if (that.player.isColliding(obstacle)) {
             colliding = true;
         }
     })
 
-    this.enemies.forEach(function(enemy){
-        if(that.player.isColliding(enemy)){
-
+    this.enemies.forEach(function(enemy) {
+        if (that.player.isColliding(enemy)) {
             colliding = true;
         }
     })
-
-    if(colliding){
+    if (colliding) {
         this.player.speedX = 0;
         this.player.speedY = 0;
     }
@@ -108,7 +109,7 @@ Game.prototype.update = function() {
     // render objects in game
     this.background.draw();
  
-    this.obstacles.forEach(function(obstacle){
+    this.obstacles.forEach(function(obstacle) {
         obstacle.draw();
     })
     
@@ -123,9 +124,10 @@ Game.prototype.update = function() {
     });
     this.player.draw();
     
-    this.enemies.forEach(function(enemy){
+    this.enemies.forEach(function(enemy) {
         enemy.draw();
     })
+
     window.requestAnimationFrame(this.update.bind(this));
 }
 
@@ -143,13 +145,13 @@ Game.prototype.stop = function() {
 }
 
 Game.prototype.gameOver = function() {
-    if(this.player.x === this.canvas.width - this.player.width && this.player.y === this.canvas.height - this.player.height) {
+    if (this.player.x === this.canvas.width - this.player.width && this.player.y === this.canvas.height - this.player.height) {
         this.stop();
-        if(confirm('YOU WIN. PLAY AGAIN?')) {
+        if (confirm('YOU WIN. PLAY AGAIN?')) {
             this.start();
         }
     }
-    if(this.time === 0) {
+    if (this.time === 0) {
         this.stop();
         if (confirm("GAME OVER. PLAY AGAIN?")) {
             this.start();

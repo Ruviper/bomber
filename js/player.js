@@ -82,7 +82,7 @@ Player.prototype.update = function() {
 
 Player.prototype.keyboardDown = function(key) {
   switch (key) {
-    case KEYBOARD.space:
+    case KEYBOARD.b:
       return this.dropBomb();
     case KEYBOARD.up:
       this.speedY = -this.maxSpeed;
