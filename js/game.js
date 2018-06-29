@@ -28,7 +28,7 @@ Game.prototype.start = function() {
     this.background = new Background(this);
     this.bomb = [];
     this.player = new Player(this);
-    //this.enemies = ;
+
 
     var enemy_positions = [[0,6],[2,10],[4,5],[6,0],[5,8],[1,14],[13,12],[0,12],[2,10],[7,2],[6,14],[9,12],[8,8],[10,2],[10,10],[13,6],[4.4]]
     this.enemies = [];
@@ -129,6 +129,15 @@ Game.prototype.update = function() {
     })
     window.requestAnimationFrame(this.update.bind(this));
 }
+
+/* Game.prototype.moveAll = function() {
+    this.player.move();
+} */
+
+/* Game.prototype.draw = function() {
+    this.game.ctx.fillStyle = "red";
+    this.game.ctx.fillRect(this.x, this.y, this.w, this.h);
+  } */
 /* 
 window.setInterval(function() {
     for (var i = 0; i <= 60; i--) {

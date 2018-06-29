@@ -116,3 +116,4 @@ Player.prototype.isColliding = function(obstacle) {
   }
   return false;
 };
+
