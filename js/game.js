@@ -23,16 +23,14 @@ function Game(canvasId) {
     document.onkeyup = function(e) {
         that.player.keyboardUp(e.keyCode);
     }
+    
 }
 
 Game.prototype.start = function() {
     this.background = new Background(this);
     this.bomb = [];
     this.player = new Player(this);
-    this.gameAudio = new Audio();
-    this.gameAudio.src = 'sounds/FreakInvadersTheme.ogg';
-    this.gameAudio.loop = true;
-    this.time = 90;
+    this.time = 91;
     var enemy_positions = [[0,6],[2,10],[4,5],[6,0],[14,10],[14,13],[5,8],[1,14],[13,12],[0,12],[2,10],[7,2],[6,14],[9,12],[8,8],[10,2],[10,10],[13,6],[4.4]]
     this.enemies = [];
     var that = this;
@@ -137,6 +135,7 @@ Game.prototype.chronometer = function(time) {
         this.time--;
         this.fpsCounter = 0;
         timer.innerHTML = 'Time: ' + this.time;
+        document.getElementById('timer').classList.remove("hide");
     }
 } 
 
