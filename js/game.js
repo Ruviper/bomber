@@ -130,6 +130,10 @@ Game.prototype.update = function() {
     window.requestAnimationFrame(this.update.bind(this));
 }
 
+Game.prototype.chronometer = function() {
+    
+} 
+
 /* Game.prototype.moveAll = function() {
     this.player.move();
 } */
@@ -145,9 +149,7 @@ window.setInterval(function() {
     }
 },1000);
 
-Game.prototype.chronometer = function() {
-    
-} */
+
 
 /* Game.prototype.stop = function() {
     clearInterval(this.clearInterval);

@@ -67,6 +67,17 @@ Player.prototype.update = function() {
   this.frameIndex = (this.frameIndex+1) % 30;
   this.x += this.speedX;
   this.y += this.speedY;
+  if (this.x <= 0) {
+    this.x = 0;
+  } else if (this.x >= this.game.canvas.width - this.width) {
+    this.x = this.game.canvas.width - this.width;
+  } 
+  if (this.y <= 0) {
+    this.y = 0;
+  } else if (this.y >= this.game.canvas.height - this.height) {
+    this.y = this.game.canvas.height - this.height;
+  }
+  
 };
 
 Player.prototype.keyboardDown = function(key) {
