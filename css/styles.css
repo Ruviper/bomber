@@ -2,6 +2,12 @@
     border: 5px solid black;
 }
 
+#timer {
+    font-size: 50px;
+    margin-left: 50px;
+    background: green;
+}
+
 .container {
     display: flex;
     max-width: 100%;

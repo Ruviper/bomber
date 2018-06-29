@@ -2,8 +2,6 @@ function Bomb(game, x, y) {
     this.game = game;
     this.x = x;
     this.y = y;
-    //this.gridX = Math.floor(x/50);
-    //this.gridY = Math.floor(y/50);
     this.width = 50;
     this.height = 50;
     this.imgBomb = new Image();

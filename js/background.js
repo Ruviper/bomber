@@ -23,8 +23,10 @@ Background.prototype.draw = function() {
             this.grid[i].x,
             this.grid[i].y,
             100,
-            100
-          );            
+            100,
+        );
+            this.game.ctx.fillStyle = "green",
+            this.game.ctx.fillRect(700, 700, 50, 50)         
     }
 }
 

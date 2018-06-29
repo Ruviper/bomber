@@ -6,15 +6,16 @@ window.KEYBOARD = {
     left: 37,
     right: 39,
 }
+var time = document.getElementById('timer');
 
 function Game(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
     this.width = this.canvas.width;
     this.height = this.canvas.height;
-    this.fps = 60;
+    this.fpsCounter = 0;
     this.framesCounter = 0;
-    //this.reset();
+    this.finish = false;
     var that = this;
     document.onkeydown = function(e) {
         that.player.keyboardDown(e.keyCode);
@@ -29,8 +30,8 @@ Game.prototype.start = function() {
     this.bomb = [];
     this.player = new Player(this);
 
-
-    var enemy_positions = [[0,6],[2,10],[4,5],[6,0],[5,8],[1,14],[13,12],[0,12],[2,10],[7,2],[6,14],[9,12],[8,8],[10,2],[10,10],[13,6],[4.4]]
+    this.time = 60;
+    var enemy_positions = [[0,6],[2,10],[4,5],[6,0],[14,10],[14,13],[5,8],[1,14],[13,12],[0,12],[2,10],[7,2],[6,14],[9,12],[8,8],[10,2],[10,10],[13,6],[4.4]]
     this.enemies = [];
     var that = this;
     enemy_positions.forEach(function(enemyPos) {
@@ -73,15 +74,14 @@ Game.prototype.start = function() {
     rock_positions.forEach(function(blockPos){
         that.obstacles.push(new Obstacle(that, blockPos[0],blockPos[1],"rock"));
     })
-
-
-    window.requestAnimationFrame(this.update.bind(this))
+    if (!this.finish) window.requestAnimationFrame(this.update.bind(this))
 }
 
 Game.prototype.update = function() {
-    
+    this.finish = false;
     this.framesCounter++;
-    
+    this.chronometer(); 
+    this.gameOver();
     // Update objects in game
     var colliding = false;
     var that = this;
@@ -118,7 +118,6 @@ Game.prototype.update = function() {
         } 
         if(b.time < 50 && b.time > 30) {
             b.explosion();
-            //b.compareObjects();
         }
         b.time-=1;
     });
@@ -130,41 +129,30 @@ Game.prototype.update = function() {
     window.requestAnimationFrame(this.update.bind(this));
 }
 
-Game.prototype.chronometer = function() {
-    
+Game.prototype.chronometer = function(time) {
+    this.fpsCounter++;
+    if (this.fpsCounter % 60 === 0) {
+        this.time--;
+        this.fpsCounter = 0;
+        timer.innerHTML = 'Time: ' + this.time;
+    }
 } 
 
-/* Game.prototype.moveAll = function() {
-    this.player.move();
-} */
-
-/* Game.prototype.draw = function() {
-    this.game.ctx.fillStyle = "red";
-    this.game.ctx.fillRect(this.x, this.y, this.w, this.h);
-  } */
-/* 
-window.setInterval(function() {
-    for (var i = 0; i <= 60; i--) {
-        console.log(i)
-    }
-},1000);
-
-
-
-/* Game.prototype.stop = function() {
-    clearInterval(this.clearInterval);
+Game.prototype.stop = function() {
+    this.finish = true;
 }
 
 Game.prototype.gameOver = function() {
+    if(this.player.x === this.canvas.width - this.player.width && this.player.y === this.canvas.height - this.player.height) {
+        this.stop();
+        if(confirm('YOU WIN. PLAY AGAIN?')) {
+            this.start();
+        }
+    }
     if(this.time === 0) {
         this.stop();
-    }
-    if(confirm("GAME OVER.PLAY AGAIN?")) {
-        this.reset();
-        this.start();
+        if (confirm("GAME OVER. PLAY AGAIN?")) {
+            this.start();
+        } 
     }
 }
-
-Game.prototype.reset = function() {
-    
-} */
